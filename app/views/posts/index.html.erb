@@ -1,3 +1,17 @@
+<% if user_signed_in? %>
+<% else %>
+    <div class="center jumbotron">
+        <div class="text-center">
+                <h1>レッツ映え</h1>
+        </div>
+        <br>
+        <div class="container text-center">
+                <%= link_to "Login / Sign up", new_user_session_path, class: 'btn btn-lg btn-primary btn-block' %>
+        </div>
+    </div>
+<%end%>
+
+<h2><%= flash[:success] %></h2>
 <% @posts.each do |post| %>
     <div class="col-md-8 col-md-2 mx-auto">
         <div class="card-wrap">
@@ -59,7 +73,6 @@
                             <% end %>
                             <hr>
                         <% end %>
-                        
                         <div class="form-group">
                             <%= form_with model: [post, @comment] do |f| %>
                                 <%= f.text_field :content, class:"row col-form col-4" %>

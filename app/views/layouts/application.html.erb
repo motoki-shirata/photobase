@@ -11,9 +11,10 @@
     <%=
     javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     %>
-    <%# <script src="path/to/src.js" data-turbolinks-track="reload"></script> %>
     <%# ↑でエラー出た。　Sprockets::Rails::Helper::AssetNotFound in Posts#index %>
     <%# webpacker.ymlのfaulseとかtrueとかいじった %>
+    <%# javascript_link_tag を javascript_pack_tagにしたらいけた %>
+    <%# これはRails 6から特有の書き方らしい。 %>
   </head>
 
   <body>
@@ -21,23 +22,27 @@
     <%# ==========ここから追加する========== %>
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container">
-        <%= link_to "", root_path, class: "navbar__brand navbar__mainLogo" %>
+        <%= link_to "Home", root_path, class: "navbar__brand navbar__mainLogo" %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-md-auto align-items-center">
+          <ul class="navbar-nav ml-auto align-items-center">
             <li>
-              <%= link_to "投稿", "posts/new", class: "btn btn-primary" %>
+              <%= link_to "画像投稿はこちら", new_post_path, class: "btn btn-secondary" %>
             </li>
             <li>
-              <%= link_to "", "#", class: "nav-link commonNavIcon profile-icon" %>
+              <%= link_to "投稿一覧", posts_path, class: "btn btn-secondary" %>
             </li>
+            <% if user_signed_in? %>
+                <li><%= link_to "サインアウト", destroy_user_session_path, method: :delete %></li>
+            <% end %>            
           </ul>
         </div>
       </div>
     </nav>
     <%# ==========ここまで追加する========== %>
+
     <div id="wrapper">
 
       <% if flash[:notice] %>
