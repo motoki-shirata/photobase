@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>photoBase</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%=
+    javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    %>
+    <%# <script src="path/to/src.js" data-turbolinks-track="reload"></script> %>
+    <%# ↑でエラー出た。　Sprockets::Rails::Helper::AssetNotFound in Posts#index %>
+    <%# webpacker.ymlのfaulseとかtrueとかいじった %>
+  </head>
+
+  <body>
+
+    <%# ==========ここから追加する========== %>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <%= link_to "", root_path, class: "navbar__brand navbar__mainLogo" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-md-auto align-items-center">
+            <li>
+              <%= link_to "投稿", "posts/new", class: "btn btn-primary" %>
+            </li>
+            <li>
+              <%= link_to "", "#", class: "nav-link commonNavIcon profile-icon" %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <%# ==========ここまで追加する========== %>
+    <div id="wrapper">
+
+      <% if flash[:notice] %>
+        <div class="alert alert-info">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%# ==========ここにcontainerクラスを追加する========== %>
+      <div class="container">
+        <%= yield %>
+      </div>
+      <%# ==========divの閉じタグを追加========== %>
+    </div>
+  </body>
+</html>
